@@ -60,6 +60,31 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        PlayAdCallback vunglePlayAdCallback = new PlayAdCallback() {
+            @Override
+            public void onAdStart(String placementReferenceId) {
+                // Placement reference ID for the placement to be played
+                Log.d("berttest", "onAdStart");
+            }
+
+            @Override
+            public void onAdEnd(String placementReferenceId, boolean completed, boolean isCTAClicked) {
+                // Placement reference ID for the placement that has completed ad experience
+                // completed has value of true or false to notify whether video was
+                // watched for 80% or more
+                // isCTAClkcked has value of true or false to indicate whether download button
+                // of an ad has been clicked by the user
+                Log.d("berttest", "onAdEnd");
+            }
+
+            @Override
+            public void onError(String placementReferenceId, VungleException exception) {
+                // Placement reference ID for the placement that failed to play an ad
+                // VungleException contains error code and message
+                Log.d("berttest", "onError");
+            }
+        };
+
         LoadAdCallback vungleLoadAdCallback = new LoadAdCallback() {
             @Override
             public void onAdLoad(String placementReferenceId) {
@@ -96,9 +121,15 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("berttest", "play Ad pressed");
                 if (Vungle.canPlayAd("INT-0631576")) {
                     Vungle.playAd("INT-0631576", null, new PlayAdCallback() {
-                        @Override public void onAdStart(String placementReferenceId) { }
-                        @Override public void onAdEnd(String placementReferenceId, boolean completed, boolean isCTAClicked) { }
-                        @Override public void onError(String placementReferenceId, VungleException exception) { }
+                        @Override public void onAdStart(String placementReferenceId) {
+                            Log.d("berttest", "onAdStart");
+                        }
+                        @Override public void onAdEnd(String placementReferenceId, boolean completed, boolean isCTAClicked) {
+                            Log.d("berttest", "onAdEnd");
+                        }
+                        @Override public void onError(String placementReferenceId, VungleException exception) {
+                            Log.d("berttest", "onError");
+                        }
                     });
                 }
             }
